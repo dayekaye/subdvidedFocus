@@ -12,7 +12,7 @@ Sphere::Sphere() {
 	//Now let's set up the shaders!!
 	// Load shaders
 	//assert((program = InitShader("vshader00_v150.glsl", "fshader00_v150.glsl")) != -1);
-	assert((program = InitShader("vshaderLighting_v150.glsl", "fshaderLighting_v150.glsl")) != -1);
+	assert((program = InitShader("blurV.glsl", "blurF.glsl")) != -1);
 	glUseProgram(program);  //make it the active one
 
 							//get the location of the vPosition attribute
@@ -62,6 +62,7 @@ void Sphere::draw(Camera cam, vector<Light> lights) {
 	glUniform4fv(laLoc, 1, lights[0].getAmbient());
 	glUniform4fv(ldLoc, 1, lights[0].getDiffuse());
 	glUniform4fv(lsLoc, 1, lights[0].getSpecular());
+
 	glDrawArrays(GL_TRIANGLES, 0, numVertices);
 
 }

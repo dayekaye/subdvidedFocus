@@ -1,15 +1,7 @@
-﻿  Sphere.cpp
-  QuadTextured.cpp
-  main.cpp
-c:\users\dkass\desktop\computergraphics\interactive\final\final\final\main.cpp(155): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\dkass\desktop\computergraphics\interactive\final\final\final\main.cpp(160): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\dkass\desktop\computergraphics\interactive\final\final\final\main.cpp(167): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\dkass\desktop\computergraphics\interactive\final\final\final\main.cpp(174): warning C4305: 'argument': truncation from 'double' to 'float'
-  InitShader.cpp
-  Ground.cpp
-  Drawable.cpp
-  Cube.cpp
-  Camera.cpp
-  Generating Code...
+﻿  main.cpp
+c:\users\dkass\desktop\computergraphics\interactive\final\final\final\main.cpp(153): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\dkass\desktop\computergraphics\interactive\final\final\final\main.cpp(158): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\dkass\desktop\computergraphics\interactive\final\final\final\main.cpp(165): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\dkass\desktop\computergraphics\interactive\final\final\final\main.cpp(172): warning C4305: 'argument': truncation from 'double' to 'float'
   final.vcxproj -> C:\Users\dkass\Desktop\computerGraphics\Interactive\Final\final\Debug\final.exe
   final.vcxproj -> C:\Users\dkass\Desktop\computerGraphics\Interactive\Final\final\Debug\final.pdb (Partial PDB)

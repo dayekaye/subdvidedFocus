@@ -15,6 +15,7 @@ public:
 	void draw(Camera, vector<Light>);
 	~Sphere();
 	void setMaterial(vec4, vec4, vec4, float);
+
 private:
 	//(4 triangular faces per tetrahedron)^(numDivisions+1)*3 vertices per triangle
 	static const unsigned int numVertices = 3072;
@@ -36,6 +37,7 @@ private:
 	GLuint maLoc, msLoc, mdLoc, mAlphaLoc;
 	//uniform light variables
 	GLuint laLoc, lsLoc, ldLoc, lpLoc;
+
 	//helper stuff
 	unsigned int index;
 	float sqrt2, sqrt6;

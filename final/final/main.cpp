@@ -1,5 +1,3 @@
-//TEXTURE MAPPING SAMPLE CODE
-
 #include "Angel.h"  //includes gl.h, glut.h and other stuff...
 #include "QuadTextured.h"
 #include "Camera.h"
@@ -64,12 +62,12 @@ int main( int argc, char **argv )
 //Initialization
 void init()
 {
-	//set up the camera
-	cam.positionCamera(vec4(0, 2, 0, 1), vec4(0, 1, 0, 0), vec4(0, 0, -1, 0), vec4(1, 0, 0, 0));
-	
-	//set up the lights
-	lights.push_back(Light(vec4(2, 1, 0, 1), vec4(1, 1, 1, 1), vec4(0.2f, 0.2f, 0.2f, 1), vec4(1, 1, 1, 1)));  //the light
+	//camera stuff
+	cam.positionCamera(vec4(0, 10, 0, 0), vec4(0, 1, 0, 0), vec4(0, 0, -1, 0), vec4(1, 0, 0, 0));
 
+	//lights
+	lights.push_back(Light(vec4(0, 10, 0, 1), vec4(1, 1, 1, 1), vec4(0.2f, 0.2f, 0.2f, 1), vec4(1, 1, 1, 1)));
+	
 	//make a triangle and set its material
 	myQuad = new QuadTextured();
 	drawables.push_back(myQuad);

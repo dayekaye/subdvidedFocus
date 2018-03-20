@@ -16,7 +16,7 @@ QuadTextured::QuadTextured() {
 	glBindVertexArray(VAO); //make this VAO active
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);  //associate the VBO with the active VAO
 
-	program = InitShader("vshaderTM_v150.glsl", "fshaderTM_v150.glsl");
+	program = InitShader("blurV.glsl", "blurF.glsl");
 	glUseProgram(program);
 
 	//link the vertex attributes with the buffer

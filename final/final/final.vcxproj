@@ -123,6 +123,7 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="mat.h" />
+    <ClInclude Include="objLoader.h" />
     <ClInclude Include="QuadTextured.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="vec.h" />
@@ -138,6 +139,8 @@
     <ClCompile Include="Sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="blurF.glsl" />
+    <None Include="blurV.glsl" />
     <None Include="crate_texture.ppm" />
     <None Include="freeglut.dll" />
     <None Include="fshaderTM_v150.glsl" />
