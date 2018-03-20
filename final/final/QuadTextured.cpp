@@ -1,6 +1,6 @@
 #include "QuadTextured.h"
 
-QuadTextured::QuadTextured() {
+QuadTextured::QuadTextured(bool chooseShade) {
 	build();
 
 	glGenBuffers(1, &VBO);
@@ -16,39 +16,80 @@ QuadTextured::QuadTextured() {
 	glBindVertexArray(VAO); //make this VAO active
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);  //associate the VBO with the active VAO
 
-	program = InitShader("blurV.glsl", "blurF.glsl");
-	glUseProgram(program);
+	
+	if (chooseShade) {
+		program1 = InitShader("vshaderTM_v150.glsl", "fshaderTM_v150.glsl");
+		glUseProgram(program1);
 
-	//link the vertex attributes with the buffer
-	GLuint vPosition, vTexture;
+		//link the vertex attributes with the buffer
+		GLuint vPosition, vTexture;
 
-	assert((vPosition = glGetAttribLocation(program, "vPosition"))!=-1);
-	glEnableVertexAttribArray(vPosition);
-	glVertexAttribPointer(vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+		assert((vPosition = glGetAttribLocation(program1, "vPosition")) != -1);
+		glEnableVertexAttribArray(vPosition);
+		glVertexAttribPointer(vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
 
-	assert((vTexture = glGetAttribLocation(program, "vTexture"))!=-1);
-	glEnableVertexAttribArray(vTexture);
-	glVertexAttribPointer(vTexture, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(vertexLocations)));
+		assert((vTexture = glGetAttribLocation(program1, "vTexture")) != -1);
+		glEnableVertexAttribArray(vTexture);
+		glVertexAttribPointer(vTexture, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(vertexLocations)));
 
-	//get the texture data for the quad
-	glGenTextures(1, &texture);
-	int imgsize = 512;
-	GLubyte *data = ppmRead("crate_texture.ppm", &imgsize, &imgsize);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imgsize, imgsize, 0, GL_RGB, GL_UNSIGNED_BYTE, data);  //move the data onto the GPU
-	delete[] data;  //dont' need this data now that its on the GPU
+		//get the texture data for the quad
+		glGenTextures(1, &texture);
+		int imgsize = 512;
+		GLubyte *data = ppmRead("crate_texture.ppm", &imgsize, &imgsize);
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imgsize, imgsize, 0, GL_RGB, GL_UNSIGNED_BYTE, data);  //move the data onto the GPU
+		delete[] data;  //dont' need this data now that its on the GPU
 
-	//set the texturing parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+						//set the texturing parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-	//get the locations of the uniform shader variables
-	assert((mmLoc = glGetUniformLocation(program, "model_matrix")) != -1);
-	assert((cmLoc = glGetUniformLocation(program, "cam_matrix")) != -1);
-	assert((pmLoc = glGetUniformLocation(program, "proj_matrix")) != -1);
-	assert((tex_loc = glGetUniformLocation(program, "textureID")) != -1);
+		//get the locations of the uniform shader variables
+		assert((mmLoc = glGetUniformLocation(program1, "model_matrix")) != -1);
+		assert((cmLoc = glGetUniformLocation(program1, "cam_matrix")) != -1);
+		assert((pmLoc = glGetUniformLocation(program1, "proj_matrix")) != -1);
+		assert((tex_loc = glGetUniformLocation(program1, "textureID")) != -1);
+	}
+	else {
+		program = InitShader("blurV.glsl", "blurF.glsl");
+		glUseProgram(program);
+
+		//link the vertex attributes with the buffer
+		GLuint vPosition, vTexture;
+
+		assert((vPosition = glGetAttribLocation(program, "vPosition")) != -1);
+		glEnableVertexAttribArray(vPosition);
+		glVertexAttribPointer(vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+
+		assert((vTexture = glGetAttribLocation(program, "vTexture")) != -1);
+		glEnableVertexAttribArray(vTexture);
+		glVertexAttribPointer(vTexture, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(vertexLocations)));
+
+		//get the texture data for the quad
+		glGenTextures(1, &texture);
+		int imgsize = 512;
+		GLubyte *data = ppmRead("crate_texture.ppm", &imgsize, &imgsize);
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imgsize, imgsize, 0, GL_RGB, GL_UNSIGNED_BYTE, data);  //move the data onto the GPU
+		delete[] data;  //dont' need this data now that its on the GPU
+
+						//set the texturing parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+		//get the locations of the uniform shader variables
+		assert((mmLoc = glGetUniformLocation(program, "model_matrix")) != -1);
+		assert((cmLoc = glGetUniformLocation(program, "cam_matrix")) != -1);
+		assert((pmLoc = glGetUniformLocation(program, "proj_matrix")) != -1);
+		assert((tex_loc = glGetUniformLocation(program, "textureID")) != -1);
+	}
+	
+
+
 }
 
 //on destroy, delete the buffer (cleanup)

@@ -16,6 +16,7 @@ void keyboard(unsigned char, int, int);
 void resize(int width, int height);
 void close(void);
 void special(int key, int x, int y);
+void mouse(int button, int state, int xPos, int yPos);
 void close(void);
 //void timerCallback(int value);
 
@@ -23,7 +24,7 @@ void close(void);
 vector<Light> lights;
 Camera cam;
 
-QuadTextured *myQuad;
+QuadTextured *myQuad, *myQuad1;
 vector<Drawable*>drawables;
 
 GLuint windowID = 0;
@@ -50,6 +51,7 @@ int main( int argc, char **argv )
 
 	//set up the callback functions
     glutDisplayFunc( display );  //REQUIRED.  What to do when it's time to draw
+	glutMouseFunc(mouse);
     glutKeyboardFunc( keyboard );  //What to do if a keyboard event is detected
 	glutWMCloseFunc(close);
 	glutReshapeFunc(resize);  //use for recomputing projection matrix on reshape
@@ -69,7 +71,7 @@ void init()
 	lights.push_back(Light(vec4(0, 10, 0, 1), vec4(1, 1, 1, 1), vec4(0.2f, 0.2f, 0.2f, 1), vec4(1, 1, 1, 1)));
 	
 	//make a triangle and set its material
-	myQuad = new QuadTextured();
+	myQuad = new QuadTextured(true);
 	drawables.push_back(myQuad);
 	
 	glEnable(GL_DEPTH_TEST); //since we're doing 3D graphics, enable the Z-buffer depth test
@@ -186,3 +188,15 @@ void close() {
 }
 
 //----------------------------------------------------------------------------
+
+void mouse(int button, int state, int xPos, int yPos) {
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+	{
+		//make a triangle and set its material
+		
+		myQuad1 = new QuadTextured(false);
+		drawables.push_back(myQuad1);
+		
+	}
+	
+}

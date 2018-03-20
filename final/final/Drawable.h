@@ -9,7 +9,7 @@ using namespace std;
 
 class Drawable {
 protected:
-	GLuint program;
+	GLuint program, program1;
 	GLuint VAO;
 	GLuint VBO;
 	mat4 modelmatrix;

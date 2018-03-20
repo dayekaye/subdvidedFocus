@@ -13,7 +13,7 @@ class QuadTextured: public Drawable{  //derived from drawable class
 public:	
 
 	//constructors
-	QuadTextured();
+	QuadTextured(bool chooseShade);
 
 	//destructor
 	~QuadTextured();
